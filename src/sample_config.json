@@ -1,5 +1,7 @@
 {
-    "nok":[
+    "Nok":[
         "some_user_emails@email.com"
-    ]
+    ],
+    "Token":"YOUR_BOT_TOKEN",
+    "Admin":"YOUR_TELEGRAM_UID"
 }
