@@ -34,6 +34,8 @@ func selectRDS(ctx context.Context){
 		os.Exit(1)
 	}
 	localLog.Sugar().Info("Selected ", result)
+
+	ssm.ConnectPublicKey(ctx, result)
 }
 
 func main() {
@@ -51,7 +53,6 @@ func main() {
 	localConfig.Load("config/koanf.toml")
 
 	ctx := context.Background()
-	selectRDS(ctx)
-	ssm.ConnectPublicKey(ctx)                      
+	selectRDS(ctx)  
 	s.Stop()
 }

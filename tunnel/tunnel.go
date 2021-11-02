@@ -5,6 +5,8 @@ import(
 	logger "xlanor/charon/logger"
 	errors
 	"golang.org/x/crypto/ssh"
+	"github.com/aws/aws-sdk-go-v2/service/ssm"
+	ssmtype "github.com/aws/aws-sdk-go-v2/service/ssm/types"
 )
 
 func parsePrivateKey() (ssh.Signer, error) {
@@ -22,7 +24,8 @@ func getSshConfig()(*ssh.ClientConfig, error) {
 		User: charonConf.GetJumpHostUser(),
 		Auth: []ssh.AuthMethod{
 			ssh.PublicKeys(key),
-		}
+		},
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	)
 
 	return &config, nil
@@ -50,7 +53,7 @@ func GetPort() *int {
 			logger.Sugar().Error("Prompt failed")
 			return nil
 		}else{
-			port, err := CheckPort(result)
+			port, err := checkPort(result)
 			if err != nil {
 				logger.Sugar().Error(err.Error())
 			}
@@ -64,7 +67,7 @@ func GetPort() *int {
 
 }
 
-func CheckPort(port int) (*int, error){
+func checkPort(port int) (*int, error){
 	addr, err := net.ResolveTCPAddr("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		// should not ever trigger because of validate
@@ -76,4 +79,8 @@ func CheckPort(port int) (*int, error){
 	}
 	defer listen.Close()
 	return &l.Addr().(*net.TCPAddr).Port, nil
+}
+
+func openSSM(){
+
 }

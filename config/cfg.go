@@ -141,7 +141,7 @@ func readFile(path string) (string, error) {
 func readFileByte(path string) ([]byte, error) {
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
-		return []byte, err
+		return []byte{}, err
 	}
 	return content, nil
 }
