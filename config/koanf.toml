@@ -1,0 +1,14 @@
+[aws]
+profile = "testing"
+region = "ap-northeast-1"
+
+[jumphost]
+tag_name = "Purpose"
+tag_value = "jumphost"
+username = "ssm-user"
+secondary_tag_name = "Name"
+secondary_tag_value = "sample"
+
+[ssh]
+pub_key_loc = "/home/jingkai/.ssh/id_rsa.pub"
+private_key_loc = "/home/jingkai/.ssh/id_rsa"
