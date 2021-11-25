@@ -108,7 +108,8 @@ func GetPublicKey() string {
 	loc := K.MustString("ssh.pub_key_loc")
 	key, err := readFile(loc)
 	if err != nil {
-		zap.L().Error("Unable to get public key")
+		zap.L().Error(fmt.Sprintf("Unable to get public key (%s)", loc))
+		zap.L().Error(err.Error())
 		os.Exit(1)
 	}
 	return key

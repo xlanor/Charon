@@ -1,5 +1,5 @@
 [aws]
-profile = "testing"
+profile = "main"
 region = "ap-northeast-1"
 
 [jumphost]
@@ -10,5 +10,5 @@ secondary_tag_name = "Name"
 secondary_tag_value = "sample"
 
 [ssh]
-pub_key_loc = "/home/jingkai/.ssh/id_rsa.pub"
-private_key_loc = "/home/jingkai/.ssh/id_rsa"
+pub_key_loc = "/Users/jingkai/.ssh/id_rsa.pub"
+private_key_loc = "/Users/jingkai/.ssh/id_rsa"

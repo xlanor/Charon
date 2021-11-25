@@ -14,7 +14,7 @@ import (
 	"xlanor/charon/logger"
 )
 
-func ConnectPublicKey(ctx context.Context, database_url string) {
+func ConnectPublicKey(ctx context.Context, database_url string) error {
 	pk := charonConf.GetPublicKey()
 	cfg, err := config.LoadDefaultConfig(
 		ctx,
@@ -55,16 +55,11 @@ func ConnectPublicKey(ctx context.Context, database_url string) {
 	}
 	opts := ssmClient.PortForwardingInput{
 		Target: *jumphost.InstanceId,
-		RemotePort: 5432,
 		LocalPort: 5432,
 	}
 
-	err = ssmClient.SSHSession(cfg, &opts)
-	//_, err = openSSM(ctx, cfg, *jumphost.InstanceId)
-	if err != nil {
-		logger.Sugar().Error(err.Error())
-	}
-	logger.Sugar().Info("Opened port")
+	return ssmClient.SSHSession(cfg, &opts)
+	
 
 }
 

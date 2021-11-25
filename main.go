@@ -20,7 +20,8 @@ func selectRDS(ctx context.Context){
 	db_string := make([]string, 0)
 
 	for _, d := range rds_list {
-		db_string = append(db_string, *d.Endpoint.Address)
+		//db_string = append(db_string, *d.Endpoint.Address)
+		db_string = append(db_string, *d.DBInstanceIdentifier)
 	}
 
 	prompt := promptui.Select{
@@ -35,7 +36,10 @@ func selectRDS(ctx context.Context){
 	}
 	localLog.Sugar().Info("Selected ", result)
 
-	ssm.ConnectPublicKey(ctx, result)
+	err = ssm.ConnectPublicKey(ctx, result)
+	if err != nil {
+		localLog.Sugar().Error(err.Error())
+	}
 }
 
 func main() {
