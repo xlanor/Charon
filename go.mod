@@ -13,6 +13,7 @@ require (
 	github.com/briandowns/spinner v1.16.0 // indirect
 	github.com/knadh/koanf v1.3.1
 	github.com/manifoldco/promptui v0.9.0 // indirect
+	github.com/mmmorris1975/ssm-session-client v0.200.0 // indirect
 	go.uber.org/zap v1.19.1
 	golang.org/x/sys v0.0.0-20211102061401-a2f17f7b995c // indirect
 )

@@ -7,6 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/ec2instanceconnect"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ssm"
+	ssmClient "github.com/mmmorris1975/ssm-session-client/ssmclient"
 	//ssmtype "github.com/aws/aws-sdk-go-v2/service/ssm/types"
 	"os"
 	charonConf "xlanor/charon/config"
@@ -52,7 +53,14 @@ func ConnectPublicKey(ctx context.Context, database_url string) {
 		logger.Sugar().Error("SSM unable to upload key")
 		os.Exit(1)
 	}
-	_, err = openSSM(ctx, cfg, *jumphost.InstanceId)
+	opts := ssmClient.PortForwardingInput{
+		Target: *jumphost.InstanceId,
+		RemotePort: 5432,
+		LocalPort: 5432,
+	}
+
+	err = ssmClient.SSHSession(cfg, &opts)
+	//_, err = openSSM(ctx, cfg, *jumphost.InstanceId)
 	if err != nil {
 		logger.Sugar().Error(err.Error())
 	}
